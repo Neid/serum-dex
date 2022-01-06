@@ -30,7 +30,7 @@ pub enum FeeTier {
 
 #[repr(transparent)]
 #[derive(Copy, Clone)]
-struct U64F64(u128);
+pub struct U64F64(u128);
 
 impl U64F64 {
     const ONE: Self = U64F64(1 << 64);
@@ -101,7 +101,7 @@ impl FeeTier {
         rebate_tenth_of_bps(0).mul_u64(pc_qty).floor()
     }
 
-    fn taker_rate(self) -> U64F64 {
+    pub fn taker_rate(self) -> U64F64 {
         use FeeTier::*;
         match self {
             Base => fee_tenth_of_bps(40),
