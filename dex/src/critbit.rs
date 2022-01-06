@@ -355,7 +355,7 @@ impl Slab {
         self.parts_mut().0
     }
 
-    fn nodes(&self) -> &[AnyNode] {
+    pub fn nodes(&self) -> &[AnyNode] {
         self.parts().1
     }
 
