@@ -11,7 +11,7 @@ use std::sync::{Arc, Mutex};
 use std::{thread, time};
 
 use anyhow::{format_err, Result};
-use clap::Clap;
+//use clap::Clap;
 use debug_print::debug_println;
 use enumflags2::BitFlags;
 use log::{error, info};
@@ -63,11 +63,11 @@ fn read_keypair_file(s: &str) -> Result<Keypair> {
         .map_err(|_| format_err!("failed to read keypair from {}", s))
 }
 
-#[derive(Clap, Debug)]
+//#[derive(Clap, Debug)]
 pub struct Opts {
-    #[clap(default_value = "mainnet")]
+    //#[clap(default_value = "mainnet")]
     pub cluster: Cluster,
-    #[clap(subcommand)]
+    //#[clap(subcommand)]
     pub command: Command,
 }
 
@@ -77,35 +77,35 @@ impl Opts {
     }
 }
 
-#[derive(Clap, Debug)]
+//#[derive(Clap, Debug)]
 pub enum Command {
     Genesis {
-        #[clap(long, short)]
+        //#[clap(long, short)]
         payer: String,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         mint: String,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         owner_pubkey: Pubkey,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         decimals: u8,
     },
     Mint {
-        #[clap(long, short)]
+        //#[clap(long, short)]
         payer: String,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         signer: String,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         mint_pubkey: Pubkey,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         recipient: Option<Pubkey>,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         quantity: u64,
     },
     CreateAccount {
@@ -114,53 +114,53 @@ pub enum Command {
         payer: String,
     },
     ConsumeEvents {
-        #[clap(long, short)]
+        //#[clap(long, short)]
         dex_program_id: Pubkey,
-        #[clap(long)]
+        //#[clap(long)]
         payer: String,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         market: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         coin_wallet: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         pc_wallet: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         num_workers: usize,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         events_per_worker: usize,
-        #[clap(long)]
+        //#[clap(long)]
         num_accounts: Option<usize>,
-        #[clap(long)]
+        //#[clap(long)]
         log_directory: String,
-        #[clap(long)]
+        //#[clap(long)]
         max_q_length: Option<u64>,
-        #[clap(long)]
+        //#[clap(long)]
         max_wait_for_events_delay: Option<u64>,
     },
     MatchOrders {
-        #[clap(long, short)]
+        //#[clap(long, short)]
         dex_program_id: Pubkey,
 
-        #[clap(long)]
+        //#[clap(long)]
         payer: String,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         market: Pubkey,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         coin_wallet: Pubkey,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         pc_wallet: Pubkey,
     },
     MonitorQueue {
-        #[clap(long, short)]
+        //#[clap(long, short)]
         dex_program_id: Pubkey,
 
-        #[clap(long, short)]
+        //#[clap(long, short)]
         market: Pubkey,
 
-        #[clap(long)]
+        //#[clap(long)]
         port: u16,
     },
     PrintEventQueue {
@@ -178,19 +178,19 @@ pub enum Command {
         orders: Pubkey,
         coin_wallet: Pubkey,
         pc_wallet: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         signer: Option<String>,
     },
     ListMarket {
         payer: String,
         dex_program_id: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         coin_mint: Pubkey,
-        #[clap(long, short)]
+        //#[clap(long, short)]
         pc_mint: Pubkey,
-        #[clap(long)]
+        //#[clap(long)]
         coin_lot_size: Option<u64>,
-        #[clap(long)]
+        //#[clap(long)]
         pc_lot_size: Option<u64>,
     },
     InitializeTokenAccount {
@@ -418,7 +418,7 @@ fn remove_dex_account_padding<'a>(data: &'a [u8]) -> Result<Cow<'a, [u64]>> {
 }
 
 #[cfg(target_endian = "little")]
-fn get_keys_for_market<'a>(
+pub fn get_keys_for_market<'a>(
     client: &'a RpcClient,
     program_id: &'a Pubkey,
     market: &'a Pubkey,
