@@ -1321,7 +1321,7 @@ fn gen_listing_params(
     Ok((info, instructions))
 }
 
-fn create_dex_account(
+pub fn create_dex_account(
     client: &RpcClient,
     program_id: &Pubkey,
     payer: &Pubkey,
