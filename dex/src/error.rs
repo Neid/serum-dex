@@ -16,6 +16,15 @@ impl From<AssertionError> for u32 {
     }
 }
 
+impl From<u32> for AssertionError {
+    fn from(err: u32) -> AssertionError {
+        AssertionError {
+            line: err as u16,
+            file_id: SourceFileId::from((err >> 24) as u8)
+        }
+    }
+}
+
 impl From<AssertionError> for DexError {
     fn from(err: AssertionError) -> DexError {
         let err: u32 = err.into();
@@ -121,8 +130,9 @@ pub enum DexErrorCode {
 }
 
 #[repr(u8)]
-#[derive(Error, Debug)]
+#[derive(Error, Debug, FromPrimitive, IntoPrimitive)]
 pub enum SourceFileId {
+    #[num_enum(default)]
     #[error("src/state.rs")]
     State = 1,
     #[error("src/matching.rs")]
