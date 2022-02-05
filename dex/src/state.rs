@@ -515,7 +515,7 @@ impl MarketState {
     }
 
     #[inline]
-    fn check_coin_payer(&self, payer: account_parser::TokenAccount) -> DexResult {
+    pub fn check_coin_payer(&self, payer: account_parser::TokenAccount) -> DexResult {
         if &payer.inner().try_borrow_data()?[..32] != transmute_to_bytes(&identity(self.coin_mint))
         {
             Err(DexErrorCode::WrongCoinMint)?
@@ -1450,7 +1450,7 @@ pub mod fuzz_account_parser {
     pub use super::account_parser::SignerAccount;
 }
 
-pub(crate) mod account_parser {
+pub mod account_parser {
     use super::*;
 
     macro_rules! declare_validated_account_wrapper {
