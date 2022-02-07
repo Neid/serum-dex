@@ -1120,7 +1120,7 @@ pub fn place_order(
     Ok(())
 }
 
-fn settle_funds(
+pub fn settle_funds(
     client: &RpcClient,
     program_id: &Pubkey,
     payer: &Keypair,
