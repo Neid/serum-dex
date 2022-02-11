@@ -746,7 +746,7 @@ pub fn consume_events_once(
 }
 
 #[cfg(target_endian = "little")]
-fn consume_events(
+pub fn consume_events(
     client: &RpcClient,
     program_id: &Pubkey,
     payer: &Keypair,
