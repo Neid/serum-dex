@@ -389,7 +389,7 @@ pub struct MarketPubkeys {
 }
 
 #[cfg(target_endian = "little")]
-fn remove_dex_account_padding<'a>(data: &'a [u8]) -> Result<Cow<'a, [u64]>> {
+pub fn remove_dex_account_padding<'a>(data: &'a [u8]) -> Result<Cow<'a, [u64]>> {
     use serum_dex::state::{ACCOUNT_HEAD_PADDING, ACCOUNT_TAIL_PADDING};
     let head = &data[..ACCOUNT_HEAD_PADDING.len()];
     if data.len() < ACCOUNT_HEAD_PADDING.len() + ACCOUNT_TAIL_PADDING.len() {
@@ -469,7 +469,7 @@ pub fn get_keys_for_market<'a>(
     })
 }
 
-fn parse_event_queue(data_words: &[u64]) -> Result<(EventQueueHeader, &[Event], &[Event])> {
+pub fn parse_event_queue(data_words: &[u64]) -> Result<(EventQueueHeader, &[Event], &[Event])> {
     let (header_words, event_words) = data_words.split_at(size_of::<EventQueueHeader>() >> 3);
     let header: EventQueueHeader =
         transmute_one_pedantic(transmute_to_bytes(header_words)).map_err(|e| e.without_src())?;
